@@ -35,7 +35,7 @@ public class BoundaryAcheterProduit {
 			System.out.println(i + 1 + " - " + vendeurs[i]);
 		}
 
-		reponse = Clavier.entrerEntier("")-1;
+		reponse = Clavier.entrerEntier("") - 1;
 		if (reponse < 0 || reponse >= vendeurs.length) {
 			return;
 		}

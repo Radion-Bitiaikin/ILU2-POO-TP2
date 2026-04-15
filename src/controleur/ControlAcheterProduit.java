@@ -23,6 +23,7 @@ public class ControlAcheterProduit {
 
 	public String[] rechercherVendeursProduit(String nomProduit) {
 		Gaulois[] vendeurs = village.rechercherVendeursProduit(nomProduit);
+		if(null==vendeurs) return new String[0];
 		String[] noms = new String[vendeurs.length];
 		for (int i = 0; i < vendeurs.length; i++) {
 			noms[i] = vendeurs[i].getNom();

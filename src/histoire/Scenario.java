@@ -1,5 +1,4 @@
 package histoire;
-
 import controleur.ControlAcheterProduit;
 import controleur.ControlAfficherMarche;
 import controleur.ControlAfficherVillage;
