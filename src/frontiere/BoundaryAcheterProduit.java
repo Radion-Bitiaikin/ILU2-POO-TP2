@@ -1,7 +1,6 @@
 package frontiere;
 
 import controleur.ControlAcheterProduit;
-import villagegaulois.Village;
 
 public class BoundaryAcheterProduit {
 	private ControlAcheterProduit controlAcheterProduit;
@@ -13,7 +12,9 @@ public class BoundaryAcheterProduit {
 	public void acheterProduit(String nomAcheteur) {
 		String produit;
 		String[] vendeurs;
+		String vendeur;
 		int reponse;
+		int quantiteAchete;
 
 		if (!controlAcheterProduit.verifierAcheteur(nomAcheteur)) {
 			System.out.println("Je suis desole " + nomAcheteur
@@ -24,21 +25,36 @@ public class BoundaryAcheterProduit {
 		produit = Clavier.entrerChaine("Quel produit voulez-vous acheter?");
 
 		vendeurs = controlAcheterProduit.rechercherVendeursProduit(produit);
-		if(vendeurs.length==0) {
+		if (vendeurs.length == 0) {
 			System.out.println("Desole, personne ne vend ce produit au marche.");
 			return;
 		}
-		
+
 		System.out.println("Chez quel commercant voulez-vous acheter des " + produit + "?");
-		for(int i=0; i<vendeurs.length; i++) {
-			System.out.println(i+1 + " - " + vendeurs[i]);
+		for (int i = 0; i < vendeurs.length; i++) {
+			System.out.println(i + 1 + " - " + vendeurs[i]);
 		}
-		
-		reponse = Clavier.entrerEntier("");
-		if(reponse < 1 || reponse > vendeurs.length) {
+
+		reponse = Clavier.entrerEntier("")-1;
+		if (reponse < 0 || reponse >= vendeurs.length) {
 			return;
 		}
-		
-		System.out.println(nomAcheteur + " se deplace jusqu'a l'etal du vendeur " + vendeurs[reponse] + "\nBonjour " + nomAcheteur);
+		vendeur = vendeurs[reponse];
+
+		System.out
+				.println(nomAcheteur + " se deplace jusqu'a l'etal du vendeur " + vendeur + "\nBonjour " + nomAcheteur);
+		reponse = Clavier.entrerEntier("Combien de " + produit + " voulez-vous acheter?");
+		quantiteAchete = controlAcheterProduit.acheterProduit(vendeur, reponse);
+
+		if (reponse == quantiteAchete) {
+			System.out.println(nomAcheteur + " achete " + quantiteAchete + " " + produit + " a " + vendeur);
+		} else if (quantiteAchete == 0) {
+			System.out.println(
+					nomAcheteur + " veut acheter " + reponse + " " + produit + ", malheureusement il y en a plus!");
+		} else {
+			System.out.println(nomAcheteur + " veut acheter " + reponse + " " + produit + ", malheureusement " + vendeur
+					+ " n'en a plus que " + quantiteAchete + ". " + nomAcheteur + " achete tout le stock de " + vendeur
+					+ ".");
+		}
 	}
 }
